@@ -8,13 +8,13 @@ import org.springframework.util.SerializationUtils;
  */
 public class ObjectDeserializer implements Deserializer<Object> {
 
-//	@Override
-//	public void configure(Map<String, ?> configs, boolean isKey) {
-//
-//	}
 
     /**
      * 反序列化
+     *
+     * @param topic 主题
+     * @param data  数据
+     * @return return
      */
     @Override
     public Object deserialize(String topic, byte[] data) {

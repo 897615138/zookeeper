@@ -11,6 +11,8 @@ import java.text.MessageFormat;
 
 /**
  * 消息消费者的第一个示例
+ *
+ * @author JillW
  */
 @Component("simpleConsumer")
 public class SimpleConsumer {

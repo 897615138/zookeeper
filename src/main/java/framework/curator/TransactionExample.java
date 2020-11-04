@@ -12,6 +12,7 @@ import java.util.Collection;
  * @author JillW
  * @date 2020/10/19
  */
+@SuppressWarnings("ALL")
 public class TransactionExample {
     public static void main(String[] args) {
 
@@ -25,8 +26,9 @@ public class TransactionExample {
                         .and().delete().forPath("/yet/another/path")
                         .and().commit(); // IMPORTANT!
         // called
-        for (CuratorTransactionResult result : results)
+        for (CuratorTransactionResult result : results) {
             System.out.println(result.getForPath() + " - " + result.getType());
+        }
         return results;
     }
 

@@ -12,6 +12,7 @@ import java.util.List;
  * @author JillW
  * @date 2020/10/19
  */
+@SuppressWarnings("ALL")
 public class CrudExample {
     public static void main(String[] args) {
     }

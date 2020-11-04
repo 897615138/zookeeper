@@ -1,6 +1,7 @@
 package count;
 
 import com.google.common.collect.Lists;
+import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.framework.recipes.shared.SharedCount;
@@ -13,8 +14,8 @@ import org.apache.curator.test.TestingServer;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -44,7 +45,9 @@ public class SharedCounterExample implements SharedCountListener {
                 baseCount.start();
 
                 List<SharedCount> examples = Lists.newArrayList();
-                ExecutorService service = Executors.newFixedThreadPool(QTY);
+                ScheduledExecutorService service = new ScheduledThreadPoolExecutor(QTY,
+                        new BasicThreadFactory.Builder().namingPattern("example-schedule-pool-%d").daemon(true).build());
+
                 for (int i = 0; i < QTY; ++i) {
                     SharedCount count = new SharedCount(client, PATH, 0);
                     examples.add(count);
@@ -76,7 +79,7 @@ public class SharedCounterExample implements SharedCountListener {
     }
 
     @Override
-    public void countHasChanged(SharedCountReader sharedCount, int newCount) throws Exception {
+    public void countHasChanged(SharedCountReader sharedCount, int newCount) {
         System.out.println("Counter's value is changed to " + newCount);
     }
 }

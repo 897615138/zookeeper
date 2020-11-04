@@ -2,6 +2,9 @@ package framework.kafka.model;
 
 import java.io.Serializable;
 
+/**
+ * @author JillW
+ */
 public class DemoObj implements Serializable {
     private static final long serialVersionUID = -8094247978023094250L;
     private Long id;

@@ -3,12 +3,10 @@ package framework.kafka.common;
 import org.apache.kafka.common.serialization.Serializer;
 import org.springframework.util.SerializationUtils;
 
+/**
+ * @author JillW
+ */
 public class ObjectSerializer implements Serializer<Object> {
-
-//	@Override
-//	public void configure(Map<String, ?> configs, boolean isKey) {
-//
-//	}
 
     /**
      * 序列化

@@ -1,5 +1,6 @@
 package barrier;
 
+import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.framework.recipes.barriers.DistributedBarrier;
@@ -7,8 +8,8 @@ import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.apache.curator.test.TestingServer;
 
 import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -19,6 +20,7 @@ import java.util.concurrent.TimeUnit;
  * @author JillW
  * @date 2020/10/22
  */
+@SuppressWarnings("ALL")
 public class DistributedBarrierExample {
     private static final int QTY = 5;
     private static final String PATH = "/examples/zookeeper.barrier";
@@ -28,7 +30,8 @@ public class DistributedBarrierExample {
             CuratorFramework client =
                     CuratorFrameworkFactory.newClient(server.getConnectString(), new ExponentialBackoffRetry(1000, 3));
             client.start();
-            ExecutorService service = Executors.newFixedThreadPool(QTY);
+            ScheduledExecutorService service = new ScheduledThreadPoolExecutor(QTY,
+                    new BasicThreadFactory.Builder().namingPattern("example-schedule-pool-%d").daemon(true).build());
             DistributedBarrier controlBarrier = new DistributedBarrier(client, PATH);
             controlBarrier.setBarrier();
 

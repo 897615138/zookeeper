@@ -15,6 +15,7 @@ import java.util.concurrent.TimeUnit;
  * @author JillW
  * @date 2020/10/20
  */
+@SuppressWarnings("ALL")
 public class Demo {
     public static void main(String[] args) throws Exception {
         RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000, 3);

@@ -4,6 +4,7 @@ package framework.curator;
  * @author JillW
  * @date 2020/10/20
  */
+@SuppressWarnings("ALL")
 public class RetryLoopExample {
     public static void main(String[] args) {
 //        RetryLoop retryLoop = client.newRetryLoop();

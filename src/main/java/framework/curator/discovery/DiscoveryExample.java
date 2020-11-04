@@ -27,6 +27,15 @@ import java.util.Map;
  */
 public class DiscoveryExample {
     private static final String PATH = "/discovery/example";
+    private static final String HELP = "help";
+    private static final String QUESTION = "?";
+    private static final String Q = "q";
+    private static final String QUIT = "quit";
+    private static final String ADD = "add";
+    private static final String DELETE = "delete";
+    private static final String RANDOM = "random";
+    private static final String LIST = "list";
+    private static final int TWO = 2;
 
     public static void main(String[] args) throws Exception {
         // This method is scaffolding to get the example up and running
@@ -69,29 +78,25 @@ public class DiscoveryExample {
                     break;
                 }
                 String command = line.trim();
-                String[] parts = command.split("\\s");
-                //                        continue;
-                if (parts.length == 0) {
-                    System.out.println("continue");
-                }
+                String[] parts = DiscoveryUtil.operation1(command);
                 String operation = parts[0];
                 String[] args = Arrays.copyOfRange(parts, 1, parts.length);
-                if ("help".equalsIgnoreCase(operation) || "?".equalsIgnoreCase(operation)) {
+                if (HELP.equalsIgnoreCase(operation) || QUESTION.equalsIgnoreCase(operation)) {
                     printHelp();
                 } else {
-                    if ("q".equalsIgnoreCase(operation) || "quit".equalsIgnoreCase(operation)) {
+                    if (Q.equalsIgnoreCase(operation) || QUIT.equalsIgnoreCase(operation)) {
                         done = true;
                     } else {
-                        if ("add".equals(operation)) {
+                        if (ADD.equals(operation)) {
                             addInstance(args, client, command, servers);
                         } else {
-                            if ("delete".equals(operation)) {
+                            if (DELETE.equals(operation)) {
                                 deleteInstance(args, command, servers);
                             } else {
-                                if ("random".equals(operation)) {
+                                if (RANDOM.equals(operation)) {
                                     listRandomInstance(args, serviceDiscovery, providers, command);
                                 } else {
-                                    if ("list".equals(operation)) {
+                                    if (LIST.equals(operation)) {
                                         listInstances(serviceDiscovery);
                                     }
                                 }
@@ -110,9 +115,11 @@ public class DiscoveryExample {
     private static void listRandomInstance(String[] args, ServiceDiscovery<InstanceDetails> serviceDiscovery,
                                            Map<String, ServiceProvider<InstanceDetails>> providers, String command)
             throws Exception {
-        // this shows how to use a ServiceProvider
-        // in a real application you'd create the ServiceProvider early for the
-        // service(s) you're interested in
+     /*
+         this shows how to use a ServiceProvider
+         in a real application you'd create the ServiceProvider early for the
+         service(s) you're interested in
+      */
         if (args.length != 1) {
             System.err.println("syntax error (expected random <name>): " + command);
             return;
@@ -124,7 +131,8 @@ public class DiscoveryExample {
                     .providerStrategy(new RandomStrategy<>()).build();
             providers.put(serviceName, provider);
             provider.start();
-            Thread.sleep(2500); // give the provider time to warm up - in a real
+            // give the provider time to warm up - in a real
+            Thread.sleep(2500);
             // application you wouldn't need to do this
         }
         ServiceInstance<InstanceDetails> instance = provider.getInstance();
@@ -180,7 +188,7 @@ public class DiscoveryExample {
             throws Exception {
         // simulate a new instance coming up
         // in a real application, this would be a separate process
-        if (args.length < 2) {
+        if (args.length < TWO) {
             System.err.println("syntax error (expected add <name> <description>): " + command);
             return;
         }

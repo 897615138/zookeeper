@@ -51,7 +51,7 @@ public class NodeCacheExample {
         cache.getListenable().addListener(listener);
     }
 
-    private static void processCommands(CuratorFramework client, NodeCache cache) throws Exception {
+    private static void processCommands(CuratorFramework client, NodeCache cache) {
         printHelp();
         try {
             addListener(cache);

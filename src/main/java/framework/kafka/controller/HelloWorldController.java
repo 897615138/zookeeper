@@ -5,8 +5,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * @author terminus
+ * @author JillW
  */
+@SuppressWarnings("ALL")
 @RestController
 public class HelloWorldController {
     @RequestMapping("/hello")

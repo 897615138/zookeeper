@@ -1,6 +1,7 @@
 package lock;
 
 
+import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.retry.ExponentialBackoffRetry;
@@ -8,8 +9,8 @@ import org.apache.curator.test.TestingServer;
 import org.apache.curator.utils.CloseableUtils;
 
 import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -25,7 +26,8 @@ public class InterProcessMutexExample {
 
     public static void main(String[] args) throws Exception {
         FakeLimitedResource resource = new FakeLimitedResource();
-        ExecutorService service = Executors.newFixedThreadPool(QTY);
+        ScheduledExecutorService service = new ScheduledThreadPoolExecutor(QTY,
+                new BasicThreadFactory.Builder().namingPattern("example-schedule-pool-%d").daemon(true).build());
         TestingServer server = new TestingServer();
         try {
             for (int i = 0; i < QTY; ++i) {

@@ -1,5 +1,106 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="EntryPointsManager">
+    <entry_points version="2.0">
+      <entry_point TYPE="field" FQNAME="framework.kafka.config.KafkaConfig consumerAutoCommitIntervalMs" />
+      <entry_point TYPE="field" FQNAME="framework.kafka.config.KafkaConfig consumerAutoOffsetReset" />
+      <entry_point TYPE="field" FQNAME="framework.kafka.config.KafkaConfig consumerBootstrapServers" />
+      <entry_point TYPE="field" FQNAME="framework.kafka.config.KafkaConfig consumerEnableAutoCommit" />
+      <entry_point TYPE="field" FQNAME="framework.kafka.config.KafkaConfig consumerGroupId" />
+      <entry_point TYPE="field" FQNAME="framework.kafka.config.KafkaConfig consumerMaxPollRecords" />
+      <entry_point TYPE="field" FQNAME="framework.kafka.config.KafkaConfig consumerSessionTimeoutMs" />
+      <entry_point TYPE="field" FQNAME="framework.kafka.config.KafkaConfig producerBatchSize" />
+      <entry_point TYPE="field" FQNAME="framework.kafka.config.KafkaConfig producerBootstrapServers" />
+      <entry_point TYPE="field" FQNAME="framework.kafka.config.KafkaConfig producerBufferMemory" />
+      <entry_point TYPE="field" FQNAME="framework.kafka.config.KafkaConfig producerLingerMs" />
+      <entry_point TYPE="field" FQNAME="framework.kafka.config.KafkaConfig producerRetries" />
+      <entry_point TYPE="field" FQNAME="framework.kafka.model.DemoObj serialVersionUID" />
+    </entry_points>
+    <pattern value="framework.curator.TransactionExample" method="addCreateToTransaction" />
+    <pattern value="framework.curator.TransactionExample" method="addDeleteToTransaction" />
+    <pattern value="framework.kafka.config.KafkaConfig" method="batchContainerFactory" />
+    <pattern value="framework.curator.TransactionExample" method="commitTransaction" />
+    <pattern value="framework.kafka.config.KafkaConfig" method="consumerFactory" />
+    <pattern value="framework.curator.CrudExample" method="create" />
+    <pattern value="framework.curator.CreateClientExample" />
+    <pattern value="framework.curator.CrudExample" method="createEphemeral" />
+    <pattern value="framework.curator.CrudExample" method="createEphemeralSequential" />
+    <pattern value="framework.curator.CrudExample" />
+    <pattern value="framework.curator.CrudExample" method="delete" />
+    <pattern value="framework.curator.Demo" />
+    <pattern value="framework.kafka.model.DemoObj" />
+    <pattern value="framework.kafka.model.DemoObj" method="DemoObj" />
+    <pattern value="framework.curator.discovery.DiscoveryExample" />
+    <pattern value="count.DistributedAtomicLongExample" />
+    <pattern value="barrier.DistributedBarrierExample" />
+    <pattern value="framework.curator.recipe.DistributedDelayQueueExample" />
+    <pattern value="barrier.DistributedDoubleBarrierExample" />
+    <pattern value="framework.curator.recipe.DistributedIdQueueExample" />
+    <pattern value="framework.curator.recipe.DistributedPriorityQueueExample" />
+    <pattern value="framework.curator.recipe.DistributedQueueExample" />
+    <pattern value="lock.ExampleClientReadWriteLocks" method="doWork" />
+    <pattern value="lock.ExampleClientReadWriteLocks" />
+    <pattern value="lock.ExampleClientReadWriteLocks" method="ExampleClientReadWriteLocks" />
+    <pattern value="framework.kafka.model.DemoObj" method="getData" />
+    <pattern value="framework.kafka.model.DemoObj" method="getId" />
+    <pattern value="framework.kafka.consumer.GroupListener1" />
+    <pattern value="framework.kafka.consumer.GroupListener2" />
+    <pattern value="framework.curator.CrudExample" method="guaranteedDelete" />
+    <pattern value="framework.kafka.controller.HelloWorldController" />
+    <pattern value="framework.kafka.controller.HelloWorldController" method="index" />
+    <pattern value="framework.curator.discovery.InstanceDetails" />
+    <pattern value="lock.InterProcessMultiLockExample" />
+    <pattern value="lock.InterProcessMutexExample" />
+    <pattern value="lock.InterProcessSemaphoreExample" />
+    <pattern value="framework.kafka.config.KafkaConfig" />
+    <pattern value="framework.kafka.config.KafkaConfig" method="kafkaTemplate" />
+    <pattern value="framework.curator.LeaderLatchExample" />
+    <pattern value="framework.curator.LeaderSelectorExample" />
+    <pattern value="framework.kafka.consumer.SimpleConsumer" method="listen" />
+    <pattern value="framework.kafka.consumer.GroupListener1" method="listenTopic1" />
+    <pattern value="framework.kafka.consumer.GroupListener1" method="listenTopic2" />
+    <pattern value="framework.kafka.consumer.GroupListener2" method="listenTopic2" />
+    <pattern value="framework.curator.CreateClientExample" method="main" />
+    <pattern value="framework.curator.CrudExample" method="main" />
+    <pattern value="framework.curator.Demo" method="main" />
+    <pattern value="framework.curator.discovery.DiscoveryExample" method="main" />
+    <pattern value="count.DistributedAtomicLongExample" method="main" />
+    <pattern value="barrier.DistributedBarrierExample" method="main" />
+    <pattern value="framework.curator.recipe.DistributedDelayQueueExample" method="main" />
+    <pattern value="barrier.DistributedDoubleBarrierExample" method="main" />
+    <pattern value="framework.curator.recipe.DistributedIdQueueExample" method="main" />
+    <pattern value="framework.curator.recipe.DistributedPriorityQueueExample" method="main" />
+    <pattern value="framework.curator.recipe.DistributedQueueExample" method="main" />
+    <pattern value="lock.InterProcessMultiLockExample" method="main" />
+    <pattern value="lock.InterProcessMutexExample" method="main" />
+    <pattern value="lock.InterProcessSemaphoreExample" method="main" />
+    <pattern value="framework.curator.LeaderLatchExample" method="main" />
+    <pattern value="framework.curator.LeaderSelectorExample" method="main" />
+    <pattern value="cache.NodeCacheExample" method="main" />
+    <pattern value="framework.curator.RetryLoopExample" method="main" />
+    <pattern value="count.SharedCounterExample" method="main" />
+    <pattern value="framework.curator.TransactionExample" method="main" />
+    <pattern value="cache.NodeCacheExample" />
+    <pattern value="framework.kafka.config.KafkaConfig" method="producerFactory" />
+    <pattern value="framework.curator.RetryLoopExample" />
+    <pattern value="framework.kafka.controller.TestKafkaController" method="send" />
+    <pattern value="framework.kafka.controller.TestKafkaController" method="send2" />
+    <pattern value="framework.curator.CrudExample" method="setData" />
+    <pattern value="framework.kafka.model.DemoObj" method="setData" />
+    <pattern value="framework.curator.CrudExample" method="setDataAsync" />
+    <pattern value="framework.curator.CrudExample" method="setDataAsyncWithCallback" />
+    <pattern value="framework.curator.discovery.InstanceDetails" method="setDescription" />
+    <pattern value="framework.kafka.model.DemoObj" method="setId" />
+    <pattern value="count.SharedCounterExample" />
+    <pattern value="framework.kafka.consumer.SimpleConsumer" />
+    <pattern value="framework.curator.TransactionExample" method="startTransaction" />
+    <pattern value="framework.kafka.controller.TestKafkaController" />
+    <pattern value="framework.curator.TransactionExample" method="transaction" />
+    <pattern value="framework.curator.TransactionExample" />
+    <pattern value="framework.curator.CrudExample" method="watchedGetChildren" />
+    <pattern value="framework.kafka.config.WebMvcConfig" />
+    <pattern value="framework.curator.discovery.InstanceDetails" method="InstanceDetails" />
+  </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="MavenProjectsManager">
     <option name="originalFiles">

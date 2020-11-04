@@ -12,6 +12,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author JillW
  * @date 2020/10/19
  */
+@SuppressWarnings({"ALL", "SameParameterValue"})
 public class ExampleClient extends LeaderSelectorListenerAdapter implements Closeable {
     private final String name;
     private final LeaderSelector leaderSelector;

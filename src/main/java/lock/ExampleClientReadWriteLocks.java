@@ -27,16 +27,16 @@ public class ExampleClientReadWriteLocks {
         writeLock = lock.writeLock();
     }
 
-    public void doWork(long time, TimeUnit unit) throws Exception {
+    static void operation(long time, TimeUnit unit, InterProcessMutex writeLock, String clientName, String s, String s2, InterProcessMutex readLock, String s3, String s4, FakeLimitedResource resource) throws Exception {
         if (!writeLock.acquire(time, unit)) {
-            throw new IllegalStateException(clientName + " could not acquire the writeLock");
+            throw new IllegalStateException(clientName + s);
         }
-        System.out.println(clientName + " has the writeLock");
+        System.out.println(clientName + s2);
 
         if (!readLock.acquire(time, unit)) {
-            throw new IllegalStateException(clientName + " could not acquire the readLock");
+            throw new IllegalStateException(clientName + s3);
         }
-        System.out.println(clientName + " has the readLock too");
+        System.out.println(clientName + s4);
 
         try {
             resource.use(); //access resource exclusively
@@ -45,5 +45,9 @@ public class ExampleClientReadWriteLocks {
             readLock.release(); // always release the zookeeper.lock in a finally block
             writeLock.release(); // always release the zookeeper.lock in a finally block
         }
+    }
+
+    public void doWork(long time, TimeUnit unit) throws Exception {
+        operation(time, unit, writeLock, clientName, " could not acquire the writeLock", " has the writeLock", readLock, " could not acquire the readLock", " has the readLock too", resource);
     }
 }

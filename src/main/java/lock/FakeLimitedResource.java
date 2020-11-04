@@ -8,6 +8,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @author JillW
  * @date 2020/10/22
  */
+@SuppressWarnings("ALL")
 public class FakeLimitedResource {
     private final AtomicBoolean inUse = new AtomicBoolean(false);
 

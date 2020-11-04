@@ -28,6 +28,7 @@ import java.util.Map;
 @Configuration
 @EnableKafka
 public class KafkaConfig {
+    private static final int SIXTEEN = 16;
     /**
      * bootstrap.servers
      * 用于建立到Kafka集群的初始连接的主机/端口对列表。
@@ -49,7 +50,7 @@ public class KafkaConfig {
      * 用户通常倾向于不设置此配置，而使用DELIVERY_TIMEOUT_MS_CONFIG delivery.timeout.ms来控制重试行为。
      */
     @Value("${kafka.producer.retries}")
-    private String producerRetries; //生产者重试次数
+    private String producerRetries;
     /**
      * batch.size
      * 每当多个记录被发送到同一个分区时，生成器将尝试将记录批处理成更少的请求。
@@ -148,7 +149,7 @@ public class KafkaConfig {
      */
     @Bean
     public ProducerFactory<Object, Object> producerFactory() {
-        Map<String, Object> configs = new HashMap<>();
+        Map<String, Object> configs = new HashMap<>(SIXTEEN);
 
         configs.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, producerBootstrapServers);
         configs.put(ProducerConfig.RETRIES_CONFIG, producerRetries);
@@ -156,8 +157,6 @@ public class KafkaConfig {
         configs.put(ProducerConfig.LINGER_MS_CONFIG, producerLingerMs);
         configs.put(ProducerConfig.BUFFER_MEMORY_CONFIG, producerBufferMemory);
         configs.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-//		configs.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,StringSerializer.class);
-//		configs.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, ObjectSerializer.class);
         configs.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, ObjectSerializer.class);
 
         return new DefaultKafkaProducerFactory<>(configs);
@@ -178,19 +177,20 @@ public class KafkaConfig {
      */
     @Bean
     public ConsumerFactory<Object, Object> consumerFactory() {
-        Map<String, Object> configs = new HashMap<>(); //参数
+        //参数
+        Map<String, Object> configs = new HashMap<>(SIXTEEN);
         configs.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, consumerBootstrapServers);
         configs.put(ConsumerConfig.GROUP_ID_CONFIG, consumerGroupId);
         configs.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, consumerEnableAutoCommit);
         configs.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, consumerAutoCommitIntervalMs);
         configs.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, consumerSessionTimeoutMs);
-        configs.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, consumerMaxPollRecords); //批量消费数量
+        //批量消费数量
+        configs.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, consumerMaxPollRecords);
         configs.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, consumerAutoOffsetReset);
         configs.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-//		configs.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,StringDeserializer.class);
-//		configs.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, ObjectDeserializer.class);
+        //需要把原来的消息删掉，不然会出现反序列化失败的问题
         configs.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,
-                ObjectDeserializer.class); //需要把原来的消息删掉，不然会出现反序列化失败的问题
+                ObjectDeserializer.class);
 
         return new DefaultKafkaConsumerFactory<>(configs);
     }
@@ -206,7 +206,8 @@ public class KafkaConfig {
                 new ConcurrentKafkaListenerContainerFactory<>();
         containerFactory.setConsumerFactory(consumerFactory());
         containerFactory.setConcurrency(4);
-        containerFactory.setBatchListener(true); //批量消费
+        //批量消费
+        containerFactory.setBatchListener(true);
         containerFactory.getContainerProperties().setAckMode(ContainerProperties.AckMode.MANUAL_IMMEDIATE);
 
         return containerFactory;

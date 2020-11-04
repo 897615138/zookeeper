@@ -9,6 +9,8 @@ import java.text.MessageFormat;
 
 /**
  * 消息生产者的第一个示例
+ *
+ * @author JillW
  */
 @Component("simpleProducer")
 public class SimpleProducer {

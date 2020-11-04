@@ -1,13 +1,12 @@
 package framework.curator.recipe;
 
+import framework.curator.discovery.DiscoveryUtil;
 import org.apache.curator.framework.CuratorFramework;
-import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.framework.recipes.queue.DistributedDelayQueue;
 import org.apache.curator.framework.recipes.queue.QueueBuilder;
 import org.apache.curator.framework.recipes.queue.QueueConsumer;
 import org.apache.curator.framework.recipes.queue.QueueSerializer;
 import org.apache.curator.framework.state.ConnectionState;
-import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.apache.curator.test.TestingServer;
 import org.apache.curator.utils.CloseableUtils;
 
@@ -17,22 +16,20 @@ import org.apache.curator.utils.CloseableUtils;
  */
 public class DistributedDelayQueueExample {
     private static final String PATH = "/example/queue";
+    private static final int TEN = 10;
 
     public static void main(String[] args) throws Exception {
         TestingServer server = new TestingServer();
         CuratorFramework client = null;
         DistributedDelayQueue<String> queue = null;
         try {
-            client = CuratorFrameworkFactory.newClient(server.getConnectString(), new ExponentialBackoffRetry(1000, 3));
-            client.getCuratorListenable().addListener(
-                    (client1, event) -> System.out.println("CuratorEvent: " + event.getType().name()));
-            client.start();
+            client = DiscoveryUtil.operation2(server);
             QueueConsumer<String> consumer = createQueueConsumer();
             QueueBuilder<String> builder = QueueBuilder.builder(client, consumer, createQueueSerializer(), PATH);
             queue = builder.buildDelayQueue();
             queue.start();
 
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < TEN; i++) {
                 queue.put("test-" + i, System.currentTimeMillis() + 10000);
             }
             System.out.println(System.currentTimeMillis() + ": already put all items");
@@ -68,7 +65,7 @@ public class DistributedDelayQueueExample {
             }
 
             @Override
-            public void consumeMessage(String message) throws Exception {
+            public void consumeMessage(String message) {
                 System.out.println(System.currentTimeMillis() + ": consume one message: " + message);
             }
         };

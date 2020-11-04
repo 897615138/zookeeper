@@ -7,6 +7,8 @@ import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.apache.curator.test.TestingServer;
 import org.apache.curator.utils.CloseableUtils;
 
+import java.util.Arrays;
+
 /**
  * @author JillW
  * @date 2020/10/22
@@ -25,7 +27,7 @@ public class CreateClientExample {
 
             client = createWithOptions(server.getConnectString(), new ExponentialBackoffRetry(1000, 3), 1000, 1000);
             client.start();
-            System.out.println(client.getData().forPath(PATH));
+            System.out.println(Arrays.toString(client.getData().forPath(PATH)));
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {

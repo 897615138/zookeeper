@@ -26,22 +26,6 @@ public class ExampleClientThatLocks {
     }
 
     public void doWork(long time, TimeUnit unit) throws Exception {
-        if (!lock.acquire(time, unit)) {
-            throw new IllegalStateException(clientName + " could not acquire the zookeeper.lock");
-        }
-        System.out.println(clientName + " has the zookeeper.lock");
-        if (!lock.acquire(time, unit)) {
-            throw new IllegalStateException(clientName + " could not acquire the zookeeper.lock");
-        }
-        System.out.println(clientName + " has the zookeeper.lock again");
-
-        try {
-            resource.use(); //access resource exclusively
-        } finally {
-            System.out.println(clientName + " releasing the zookeeper.lock");
-            lock.release(); // always release the zookeeper.lock in a finally block
-            lock.release();
-
-        }
+        ExampleClientReadWriteLocks.operation(time, unit, lock, clientName, " could not acquire the zookeeper.lock", " has the zookeeper.lock", lock, " could not acquire the zookeeper.lock", " has the zookeeper.lock again", resource);
     }
 }

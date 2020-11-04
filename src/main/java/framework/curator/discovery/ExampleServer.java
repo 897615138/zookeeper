@@ -16,6 +16,7 @@ import java.io.IOException;
  * @author JillW
  * @date 2020/10/22
  */
+@SuppressWarnings({"ALL", "SameParameterValue"})
 public class ExampleServer implements Closeable {
     private final ServiceDiscovery<InstanceDetails> serviceDiscovery;
     private final ServiceInstance<InstanceDetails> thisInstance;

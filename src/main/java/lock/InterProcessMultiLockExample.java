@@ -23,6 +23,7 @@ import java.util.concurrent.TimeUnit;
 public class InterProcessMultiLockExample {
     private static final String PATH1 = "/examples/locks1";
     private static final String PATH2 = "/examples/locks2";
+    private static final int TEN = 10;
 
     public static void main(String[] args) throws Exception {
         FakeLimitedResource resource = new FakeLimitedResource();
@@ -35,7 +36,7 @@ public class InterProcessMultiLockExample {
             InterProcessLock lock2 = new InterProcessSemaphoreMutex(client, PATH2);
 
             InterProcessMultiLock lock = new InterProcessMultiLock(Arrays.asList(lock1, lock2));
-            if (!lock.acquire(10, TimeUnit.SECONDS)) {
+            if (!lock.acquire(TEN, TimeUnit.SECONDS)) {
                 throw new IllegalStateException("could not acquire the zookeeper.lock");
             }
             System.out.println("has the zookeeper.lock");

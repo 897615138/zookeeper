@@ -16,8 +16,10 @@ import org.apache.curator.utils.CloseableUtils;
  * @author JillW
  * @date 2020/10/22
  */
+@SuppressWarnings("ALL")
 public class DistributedPriorityQueueExample {
     private static final String PATH = "/example/queue";
+    private static final int TEN = 10;
 
     public static void main(String[] args) throws Exception {
         TestingServer server = new TestingServer();
@@ -33,7 +35,7 @@ public class DistributedPriorityQueueExample {
             queue = builder.buildPriorityQueue(0);
             queue.start();
 
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < TEN; i++) {
                 int priority = (int) (Math.random() * 100);
                 System.out.println("test-" + i + " priority:" + priority);
                 queue.put("test-" + i, priority);
